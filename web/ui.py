@@ -1,8 +1,8 @@
 """Shared UI: design system, the 3-pane shell, and reusable components.
 
-Same FastPPM navy/teal design family as the sister TaxHub app: left nav +
-centre content + right copilot rail. FastPPM puts the chat-first analyst at
-the centre; page modules import ``Page`` and the component helpers here.
+FastPPM's navy/teal design system provides a left navigation pane, centre
+content, and right copilot rail. FastPPM puts the chat-first analyst at the
+centre; page modules import ``Page`` and the component helpers here.
 """
 
 from __future__ import annotations

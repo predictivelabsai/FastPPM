@@ -6,8 +6,8 @@ siloed documents (PDF / XLSX / PPTX / DOCX), normalises them to a canonical
 schema, and delivers a unified master repository with a Gantt, value tracking,
 dashboards and a chat-first analyst.
 
-It shares its architecture with the sister app **TaxHub**: a FastHTML 3-pane UI,
-a pluggable storage facade, xAI Grok via LangChain, and Plotly dashboards.
+Its architecture combines a FastHTML 3-pane UI, a pluggable storage facade,
+xAI Grok via LangChain, and Plotly dashboards.
 
 ---
 

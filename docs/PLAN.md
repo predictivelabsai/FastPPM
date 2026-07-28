@@ -1,9 +1,8 @@
 # FastPPM — Value Creation Cockpit · Build Plan
 
 A PE-grade **Project Management, Value Creation Monitoring, and KPI/Status
-Reporting Cockpit** for a private-equity portfolio company. Built by cloning the
-proven architecture, design system, and backend patterns of the sister repo
-**`taxhub`** (`dev/FastPPM/taxhub`).
+Reporting Cockpit** for a private-equity portfolio company, using established
+architecture, design-system, and backend patterns.
 
 > Source spec: `data/project-management-dashboard.pdf` (the functional outline).
 > This plan is the implementation blueprint for **Phase 1**, with later phases
@@ -15,19 +14,19 @@ proven architecture, design system, and backend patterns of the sister repo
 
 | Decision | Choice | Notes |
 |---|---|---|
-| **Storage** | SQLite (local) → Postgres (prod), single relational backend | Port taxhub's `Storage` interface + facade; drop the Neo4j backend. Financial/time-series data is relational, not graph-shaped. |
-| **AI copilot** | xAI Grok via OpenAI-compatible LangChain client | Copy taxhub's `rag/llm.py` + agent/SSE pattern verbatim; re-prompt for PE value-creation Q&A. |
+| **Storage** | SQLite (local) → Postgres (prod), single relational backend | Port the reference implementation's `Storage` interface + facade; drop the Neo4j backend. Financial/time-series data is relational, not graph-shaped. |
+| **AI copilot** | xAI Grok via OpenAI-compatible LangChain client | Copy the reference implementation's `rag/llm.py` + agent/SSE pattern verbatim; re-prompt for PE value-creation Q&A. |
 | **MVP scope** | Phase 1 — Intake + Project Registry + Executive Cockpit | The spec's own Phase 1; an end-to-end spine that demos value fast. |
 | **Seed data** | Synthetic PE demo dataset | `config/seed_portfolio.yaml` → realistic fake portfolio co (~20 projects, KPIs, business cases, levers, RAG). |
-| **Web framework** | FastHTML + Plotly (identical to taxhub) | Same 3-pane shell, same `--navy/--accent` design tokens. |
-| **Python** | 3.12 | Matches taxhub Dockerfile. |
-| **Deploy** | Docker / Coolify, uvicorn, `/health` check | Mirror taxhub; pick a distinct port (proposed **5012**). |
+| **Web framework** | FastHTML + Plotly (identical to the reference implementation) | Same 3-pane shell, same `--navy/--accent` design tokens. |
+| **Python** | 3.12 | Matches the reference implementation Dockerfile. |
+| **Deploy** | Docker / Coolify, uvicorn, `/health` check | Mirror the reference implementation; pick a distinct port (proposed **5012**). |
 
 ---
 
-## 2. What we clone from taxhub (pattern-for-pattern)
+## 2. What we clone from the reference implementation (pattern-for-pattern)
 
-| taxhub pattern | fastppm equivalent |
+| the reference implementation pattern | fastppm equivalent |
 |---|---|
 | `storage/base.py` — abstract `Storage` interface, dicts in/out, ISO-8601 UTC | Same interface shape, PE domain methods |
 | `storage/__init__.py` — runtime factory (`DATA_STORAGE`) + singleton | Same, sqlite-only |
@@ -64,7 +63,7 @@ fastppm/
     tools.py           # specialist tools (portfolio, value, finance, project)
     sse.py             # SSE event helpers (copied)
   rag/
-    llm.py             # Grok client (copied from taxhub)
+    llm.py             # Grok client (copied from the reference implementation)
   config/
     seed_portfolio.yaml  # synthetic demo dataset
     kpis.yaml            # enterprise KPI definitions (leading/lagging)
@@ -124,7 +123,7 @@ the project moves `evaluated → approved`; a project id + budget code is minted
 
 ## 5. Web layer — pages (Phase 1)
 
-Same 3-pane shell as taxhub: **left nav** (brand, navigate links, recent chats,
+Same 3-pane shell as the reference implementation: **left nav** (brand, navigate links, recent chats,
 project tree) · **center content** · **right copilot/feed**. Reuse the
 `--navy:#123B5D / --accent:#00A6A6` FastPPM design tokens.
 
@@ -146,13 +145,13 @@ portfolio bubble, BU/pillar heatmap, RAG donut, KPI trend lines, variance bars.
 
 **Scoring engine** (`web/scoring.py`): weighted prioritisation —
 `40% value/ROI + 30% strategic alignment + 20% risk + 10% resource fit` — mirrors
-taxhub's `obligations.py` determine-engine pattern (pure function over rows).
+the reference implementation's `obligations.py` determine-engine pattern (pure function over rows).
 
 ---
 
 ## 6. AI copilot — "Ask the cockpit"
 
-Copy taxhub's `rag/llm.py` (Grok, OpenAI-compatible), `agents/sse.py`, and the
+Copy the reference implementation's `rag/llm.py` (Grok, OpenAI-compatible), `agents/sse.py`, and the
 `create_react_agent` orchestrator. Re-prompt the system message for PE value
 creation; replace specialist tools with:
 
@@ -162,7 +161,7 @@ creation; replace specialist tools with:
 - `project_agent` — status, milestones, risks for a named project.
 
 Degrades gracefully when `XAI_API_KEY` is unset (direct query fallback, like
-taxhub). SSE streaming + the existing JS handler reused unchanged.
+the reference implementation). SSE streaming + the existing JS handler reused unchanged.
 
 ---
 
@@ -213,4 +212,4 @@ conversion). `scripts/seed.py` loads both into the DB (idempotent upserts).
 - **Single portfolio company** in Phase 1 (multi-company/multi-fund deferred).
 - **Roles** enforced at route level (read-only for sponsor/board; CRUD for PMO).
 - **Sponsor Pack export** (PDF/deck) deferred to Phase 3.
-- **Port 5012** assumed to avoid clashing with taxhub's 5011 — confirm.
+- **Port 5012** assumed to avoid clashing with the reference implementation's 5011 — confirm.

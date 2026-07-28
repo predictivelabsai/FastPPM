@@ -1,8 +1,8 @@
 """LLM client for the cockpit copilot.
 
-xAI Grok via the OpenAI-compatible LangChain client (same configuration as the
-sister TaxHub app). The copilot degrades gracefully without a key — the
-orchestrator falls back to deterministic data lookups.
+xAI Grok via the OpenAI-compatible LangChain client. The copilot degrades
+gracefully without a key — the orchestrator falls back to deterministic data
+lookups.
 """
 
 from __future__ import annotations

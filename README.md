@@ -14,8 +14,8 @@ as the primary interaction layer.
 Key screens are also documented in the [Markdown user guide](docs/fastppm_user_guide.md)
 and the generated PDF and PowerPoint guides under `docs/`.
 
-Built on the same architecture as the sister app **TaxHub** — FastHTML 3-pane UI,
-a pluggable storage facade, xAI Grok via LangChain, and Plotly dashboards.
+FastPPM uses a FastHTML 3-pane UI, a pluggable storage facade, xAI Grok via
+LangChain, and Plotly dashboards.
 Deploys at **fastppm.predictivelabs.ai**.
 
 > Build plan & earlier decisions: [`docs/PLAN.md`](docs/PLAN.md).
