@@ -1,0 +1,30 @@
+# Single PE portfolio company — "Atlas Industries" — Value Creation Plan 2026.
+# One transformation programme with workstreams and internal AI use cases as
+# child initiatives. scripts/seed.py loads these and generates milestones (with
+# baseline vs actual dates + dependencies), risks and quarterly value tracking.
+#
+# Money in GBP. value_target / value_realized are annual run-rate benefit.
+# rag: G/A/R. health drives the synthetic schedule slip on milestones.
+
+company:
+  name: Atlas Industries
+  programme: Value Creation Plan 2026
+
+# type: program | workstream | ai_use_case | value_initiative
+# parent: ref of the parent (the programme); top-level program has none.
+initiatives:
+  - {ref: VCP-2026, name: Value Creation Plan 2026, type: program, workstream: Programme, owner: CEO / Transformation Office, status: in_progress, rag: A, progress: 44, start: 2026-01-01, end: 2026-12-31, baseline_end: 2026-12-31, value_target: 18500000, value_realized: 6300000, value_category: ebitda}
+
+  - {ref: WS-COM, name: Commercial excellence, type: workstream, workstream: Commercial, owner: CCO, status: on_track, rag: G, progress: 58, start: 2026-01-15, end: 2026-10-31, baseline_end: 2026-10-31, value_target: 3200000, value_realized: 1500000, value_category: revenue, parent: VCP-2026}
+  - {ref: WS-PRC, name: Pricing optimisation, type: workstream, workstream: Commercial, owner: CFO, status: on_track, rag: G, progress: 66, start: 2026-01-15, end: 2026-08-31, baseline_end: 2026-08-31, value_target: 2400000, value_realized: 1400000, value_category: ebitda, parent: VCP-2026}
+  - {ref: WS-OPS, name: Operational efficiency, type: workstream, workstream: Operations, owner: COO, status: at_risk, rag: A, progress: 41, start: 2026-02-01, end: 2026-11-30, baseline_end: 2026-10-31, value_target: 3400000, value_realized: 900000, value_category: cost_savings, parent: VCP-2026}
+  - {ref: WS-PROC, name: Procurement transformation, type: workstream, workstream: Supply Chain, owner: COO, status: on_track, rag: G, progress: 72, start: 2026-01-15, end: 2026-07-31, baseline_end: 2026-07-31, value_target: 2600000, value_realized: 1200000, value_category: cost_savings, parent: VCP-2026}
+  - {ref: WS-WC, name: Working-capital optimisation, type: workstream, workstream: Finance, owner: CFO, status: on_track, rag: G, progress: 70, start: 2026-01-15, end: 2026-06-30, baseline_end: 2026-06-30, value_target: 1800000, value_realized: 1100000, value_category: cost_savings, parent: VCP-2026}
+  - {ref: WS-ERP, name: ERP / IT modernisation, type: workstream, workstream: Technology, owner: CIO, status: delayed, rag: R, progress: 33, start: 2026-01-01, end: 2026-12-15, baseline_end: 2026-10-31, value_target: 1600000, value_realized: 300000, value_category: cost_savings, parent: VCP-2026}
+  - {ref: WS-MNA, name: Bolt-on M&A integration (Helix), type: workstream, workstream: Corporate, owner: CEO, status: in_progress, rag: A, progress: 38, start: 2026-03-01, end: 2026-12-31, baseline_end: 2026-12-31, value_target: 1500000, value_realized: 200000, value_category: synergy, parent: VCP-2026}
+
+  - {ref: AI-FCST, name: AI demand forecasting, type: ai_use_case, workstream: Supply Chain, owner: Head of Data, status: at_risk, rag: A, progress: 52, start: 2026-02-01, end: 2026-09-30, baseline_end: 2026-08-31, value_target: 1200000, value_realized: 400000, value_category: cost_savings, parent: VCP-2026}
+  - {ref: AI-AP, name: AI document automation (Accounts Payable), type: ai_use_case, workstream: Finance, owner: Head of Data, status: on_track, rag: G, progress: 61, start: 2026-02-15, end: 2026-08-31, baseline_end: 2026-08-31, value_target: 1300000, value_realized: 650000, value_category: ebitda, parent: VCP-2026}
+  - {ref: AI-CHURN, name: AI customer churn prediction, type: ai_use_case, workstream: Commercial, owner: Head of Data, status: on_track, rag: G, progress: 55, start: 2026-03-01, end: 2026-09-30, baseline_end: 2026-09-30, value_target: 900000, value_realized: 250000, value_category: revenue, parent: VCP-2026}
+  - {ref: AI-COPILOT, name: AI sales copilot, type: ai_use_case, workstream: Commercial, owner: Head of Data, status: in_progress, rag: A, progress: 35, start: 2026-04-01, end: 2026-11-30, baseline_end: 2026-11-30, value_target: 800000, value_realized: 100000, value_category: revenue, parent: VCP-2026}
+  - {ref: AI-MAINT, name: AI predictive maintenance, type: ai_use_case, workstream: Operations, owner: Head of Data, status: not_started, rag: A, progress: 8, start: 2026-05-01, end: 2026-12-31, baseline_end: 2026-12-31, value_target: 1000000, value_realized: 0, value_category: cost_savings, parent: VCP-2026}

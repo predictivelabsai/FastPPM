@@ -216,3 +216,28 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ── FastPPM ──────────────────────────────────────────────────────────────────
+# Local SQLite db (created by the seed loader / app at runtime)
+fastppm.db
+fastppm.db-shm
+fastppm.db-wal
+*.db
+*.db-shm
+*.db-wal
+# Playwright MCP scratch + verification screenshots
+.playwright-mcp/
+.playwright-cli/
+cockpit.png
+project.png
+*.png
+
+# ── FastPPM runtime artifacts ─────────────────────────────────────────────
+samples/
+data/uploads/
+fastppm.db
+vf-*.png
+
+# keep user-guide source screenshots
+!docs/screenshots/
+!docs/screenshots/*.png

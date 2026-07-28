@@ -1,0 +1,33 @@
+services:
+  web:
+    build: .
+    image: fastppm:latest
+    ports:
+      - "5012:5012"
+    environment:
+      - DATA_STORAGE=${DATA_STORAGE:-sqlite}
+      - DB_URL=${DB_URL:-sqlite:////app/data/fastppm.db}
+      - XAI_API_KEY=${XAI_API_KEY:-}
+      - XAI_BASE_URL=${XAI_BASE_URL:-https://api.x.ai/v1}
+      - GROK_MODEL=${GROK_MODEL:-grok-4-1-fast-reasoning}
+      - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@example.com}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-change-me}
+      - APP_SECRET=${APP_SECRET:-change-me}
+    volumes:
+      - fastppm-data:/app/data
+    restart: unless-stopped
+
+  # One-shot: load the synthetic demo portfolio into the shared volume.
+  seed:
+    build: .
+    image: fastppm:latest
+    profiles: ["tools"]
+    environment:
+      - DATA_STORAGE=${DATA_STORAGE:-sqlite}
+      - DB_URL=${DB_URL:-sqlite:////app/data/fastppm.db}
+    volumes:
+      - fastppm-data:/app/data
+    command: ["python", "-m", "scripts.seed"]
+
+volumes:
+  fastppm-data:

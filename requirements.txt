@@ -1,0 +1,33 @@
+python-fasthtml==0.14.2
+sqlalchemy==2.0.50
+psycopg2-binary==2.9.12
+python-dotenv==1.2.2
+uvicorn==0.49.0
+python-multipart==0.0.32
+# AI copilot — xAI Grok via the OpenAI-compatible LangChain client
+langchain-core==1.4.1
+langchain-openai==1.2.2
+langgraph==1.2.4
+# Charts / data
+plotly==6.8.0
+pandas==3.0.3
+numpy==2.4.6
+# Config + auth
+pyyaml==6.0.3
+bcrypt==4.3.0
+httpx==0.28.1
+# Document ingestion (flagship): per-format extraction + sample generation
+pdfplumber==0.11.4
+openpyxl==3.1.5
+python-pptx==1.0.2
+python-docx==1.1.2
+fpdf2==2.8.1
+# User-guide slide rendering
+playwright==1.55.0
+# Testing
+pytest==8.4.1
+pytest-asyncio==1.0.0
+# Optional: Google Drive upload of the dated user guide (scripts/gdrive_upload.py)
+google-api-python-client==2.198.0
+google-auth==2.55.1
+google-auth-oauthlib==1.4.0
