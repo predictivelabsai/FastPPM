@@ -14,14 +14,16 @@ from pathlib import Path
 
 import bcrypt
 from fasthtml.common import *
-from starlette.responses import StreamingResponse
+from starlette.responses import JSONResponse, StreamingResponse
 
 import ppmstore as store
 from web.ui import (CSS, MARKED, FAVICON, PLOTLY, VH_STREAM_JS, COPILOT_JS, Page,
                     left_pane, SUGGESTIONS, BRAND, money, pct)
 from web import dashboard, initiatives, gantt, documents, prompts, help as helppages
 from web import account_auth, auth, exports, reports as reportsui
+from web.api import api
 from web.landing import landing_page
+from web.developer import developer_page
 from reports import generate as repgen, export as repexport
 from agents import orchestrator
 from ingest import extract as ex
@@ -64,6 +66,17 @@ def require(sess):
 
 app, rt = fast_app(hdrs=(FAVICON, MARKED), secret_key=os.environ.get("APP_SECRET", "fastppm-2026"),
                    pico=False)
+app.mount("/api", api)
+
+
+@rt("/swagger.json", methods=["GET"])
+def swagger_schema():
+    return JSONResponse(api.openapi())
+
+
+@rt("/developers", methods=["GET"])
+def developers():
+    return developer_page()
 
 
 def establish_local_account(sess, account):

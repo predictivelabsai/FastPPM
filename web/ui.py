@@ -55,6 +55,7 @@ NAV = [
 HELP_NAV = [
     ("📘 User Guide", "/help/guide"),
     ("🛠 Technical Architecture", "/help/architecture"),
+    ("⌘ Developers", "/developers"),
 ]
 
 SUGGESTIONS = [
