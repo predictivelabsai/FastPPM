@@ -21,6 +21,7 @@ from web.ui import (CSS, MARKED, FAVICON, PLOTLY, VH_STREAM_JS, COPILOT_JS, Page
                     left_pane, SUGGESTIONS, BRAND, money, pct)
 from web import dashboard, initiatives, gantt, documents, prompts, help as helppages
 from web import auth, exports, reports as reportsui
+from web.landing import landing_page
 from reports import generate as repgen, export as repexport
 from agents import orchestrator
 from ingest import extract as ex
@@ -191,6 +192,8 @@ def _home_right():
 
 @rt("/")
 def home(sess, sid: int = 0):
+    if LOGIN_REQUIRED and not current_user(sess):
+        return landing_page()
     if (r := require(sess)):
         return r
     return (Title(BRAND), CSS,
