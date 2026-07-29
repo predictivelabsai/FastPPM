@@ -20,7 +20,7 @@ import ppmstore as store
 from web.ui import (CSS, MARKED, FAVICON, PLOTLY, VH_STREAM_JS, COPILOT_JS, Page,
                     left_pane, SUGGESTIONS, BRAND, money, pct)
 from web import dashboard, initiatives, gantt, documents, prompts, help as helppages
-from web import auth, exports, reports as reportsui
+from web import account_auth, auth, exports, reports as reportsui
 from web.landing import landing_page
 from reports import generate as repgen, export as repexport
 from agents import orchestrator
@@ -64,6 +64,18 @@ def require(sess):
 
 app, rt = fast_app(hdrs=(FAVICON, MARKED), secret_key=os.environ.get("APP_SECRET", "fastppm-2026"),
                    pico=False)
+
+
+def establish_local_account(sess, account):
+    user = store.get_user_by_email(account["email"])
+    sess["uid"] = user["id"] if user else f"local:{account['email']}"
+    sess["email"] = account["email"]
+    sess["role"] = (user.get("role") if user else None) or "pmo"
+
+
+account_auth.register_fasthtml_routes(
+    rt, app_name="FastPPM", success_path="/", on_login=establish_local_account
+)
 
 
 @rt("/health")
@@ -134,6 +146,7 @@ def auth_callback(sess, request, code: str = "", state: str = "", error: str = "
     if not auth.is_allowed(info["email"]):
         return RedirectResponse("/login?error=This+Google+account+is+not+authorised",
                                 status_code=303)
+    account_auth.accounts.link_google(info["email"], info["name"])
     # Reuse a local user row if one exists (keeps its role), else log in as the
     # Google identity with a default PMO role.
     user = store.get_user_by_email(info["email"])
